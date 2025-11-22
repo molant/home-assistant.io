@@ -42,7 +42,7 @@ There is currently support for the following {% term device %} types within Home
 - **Cover**: Reports on `Secure Barriers` and can be used to open and close the cover.
 - **Lock**: Reports on `Door Locks` and can be used to lock and unlock the door.
 - **Light**: Reports on `Dimmer` lights and can be used to dim or turn the light on and off.
-- **Switch**: Reports on `Power Switch` and `Water Valve` devices which can be turned on and off. Also reports on `Automations` set up in the Abode system and allows you to activate or deactivate them.
+- **Switch**: Reports on `Power Switch` and `Water Valve` devices which can be turned on and off. Also reports on `Automations` set up in the Abode system and allows you to activate or deactivate them. Additionally provides switches for triggering and dismissing manual alarms (`Panic`, `Silent Panic`, `Medical`, `CO`, `Smoke`, `Smoke CO`, `Burglar`) and a `Test Mode` switch.
 - **Sensor**: Reports on `Temperature`, `Humidity`, and `Light` sensors.
 
 {% include integrations/config_flow.md %}
@@ -88,7 +88,7 @@ and the inferred groups and their ranges of event codes are defined in
 
 ## Actions
 
-Available {% term actions %}: `change_setting`, `capture_image`, `trigger_automation`
+Available {% term actions %}: `change_setting`, `capture_image`, `trigger_automation`, `trigger_alarm`, `acknowledge_alarm`, `dismiss_alarm`, `enable_test_mode`, `disable_test_mode`
 
 ### Action `change_setting`
 
@@ -116,3 +116,35 @@ Trigger an automation on your Abode system.
 | Data attribute | Optional | Description |
 | ---------------------- | -------- | ----------- |
 | `entity_id` | No | String or list of strings that point at `entity_id`s of switches that represent your Abode automations. |
+
+### Action `trigger_alarm`
+
+Trigger a manual alarm on your Abode system.
+
+| Data attribute | Optional | Description |
+| ---------------------- | -------- | ----------- |
+| `alarm_type` | No | The type of alarm to trigger: `PANIC`, `SILENT_PANIC`, `MEDICAL`, `CO`, `SMOKE_CO`, `SMOKE`, or `BURGLAR`. |
+
+### Action `acknowledge_alarm`
+
+Acknowledge a timeline alarm event.
+
+| Data attribute | Optional | Description |
+| ---------------------- | -------- | ----------- |
+| `timeline_id` | No | The timeline event ID of the alarm to acknowledge. |
+
+### Action `dismiss_alarm`
+
+Dismiss a timeline alarm event.
+
+| Data attribute | Optional | Description |
+| ---------------------- | -------- | ----------- |
+| `timeline_id` | No | The timeline event ID of the alarm to dismiss. |
+
+### Action `enable_test_mode`
+
+Enable test mode on your Abode system. When test mode is enabled, alarms will not be dispatched to the monitoring service. Test mode automatically turns off after 30 minutes.
+
+### Action `disable_test_mode`
+
+Disable test mode on your Abode system.
